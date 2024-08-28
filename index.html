@@ -3,48 +3,47 @@
 <head>
     <meta charset='UTF-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-    <title>Salmos</title>
+    <title>Visualizador de Salmos</title>
     <style>
-  body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    margin: 0;
-    padding: 20px;
-    max-width: 800px;
-    margin: 0 auto;
-    background-color: #e0f7fa; /* Fundo azul claro */
-  }
-  h1 {
-    text-align: center;
-    color: #00796b; /* Título azul escuro */
-  }
-  select {
-    display: block;
-    margin: 20px auto;
-    padding: 10px;
-    font-size: 16px;
-    font-family: Arial Bold, sans-serif;  
-    background-color: #b2ebf2; /* Fundo do seletor azul claro */
-    border: 1px solid #00796b; /* Borda azul escuro */
-  }
-  #content {
-    background-color: #b2ebf2;
-    border: 1px solid #00796b; /* Borda azul escuro */
-    padding: 20px;
-    border-radius: 5px;
-      diplay: none;
-  }
-  .verse {
-    margin-bottom: 10px;
-  }
-  .verse-number {
-    font-weight: bold;
-    color: #00796b; /* Número do versículo azul escuro */
-  }
-</style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #e0f7fa; /* Fundo azul claro */
+        }
+        h1 {
+            text-align: center;
+            color: #00796b; /* Título azul escuro */
+        }
+        select {
+            display: block;
+            margin: 20px auto;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #b2ebf2; /* Fundo do seletor azul claro */
+            border: 1px solid #00796b; /* Borda azul escuro */
+        }
+        #content {
+            background-color: #ffffff;
+            border: 1px solid #00796b; /* Borda azul escuro */
+            padding: 20px;
+            border-radius: 5px;
+            display: none; /* Ocultar inicialmente */
+        }
+        .verse {
+            margin-bottom: 10px;
+        }
+        .verse-number {
+            font-weight: bold;
+            color: #00796b; /* Número do versículo azul escuro */
+        }
+    </style>
 </head>
 <body>
-    <h1>Salmos</h1>
+    <h1>Visualizador de Salmos</h1>
     <select id='chapterSelect'>
         <option value=''>Selecione um capítulo</option>
     </select>
@@ -92,8 +91,10 @@
                         verseElement.innerHTML = `<span class='verse-number'>${verseNumber}</span> ${verse['#text']}`;
                         content.appendChild(verseElement);
                     });
+                    content.style.display = 'block'; // Mostrar o conteúdo
                 } else {
                     content.textContent = 'Selecione um capítulo para visualizar.';
+                    content.style.display = 'none'; // Ocultar o conteúdo se nenhum capítulo for selecionado
                 }
             });
         });
