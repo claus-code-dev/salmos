@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang='pt-BR'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Visualizador de Salmos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        select {
+            display: block;
+            margin: 20px auto;
+            padding: 10px;
+            font-size: 16px;
+        }
+        #content {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        .verse {
+            margin-bottom: 10px;
+        }
+        .verse-number {
+            font-weight: bold;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1>Visualizador de Salmos</h1>
+    <select id='chapterSelect'>
+        <option value=''>Selecione um capítulo</option>
+    </select>
+    <div id='content'></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const chapterSelect = document.getElementById('chapterSelect');
+            const content = document.getElementById('content');
+            let salmosData;
+            
+            // Fetch JSON data from Google Drive
+            fetch('https://drive.google.com/uc?export=download&id=1DnCmlxGXPBfBS3IDG-Zp-NokUoCzSR1r')
+                .then(response => response.json())
+                .then(data => {
+                    salmosData = data;
+                    populateChapterSelect();
+                })
+                .catch(error => {
+                    console.error('Error loading JSON:', error);
+                    content.textContent = 'Erro ao carregar os dados. Por favor, tente novamente mais tarde.';
+                });
+
+            function populateChapterSelect() {
+                if (!salmosData || !Array.isArray(salmosData)) {
+                    console.error('Invalid or missing salmosData');
+                    return;
+                }
+                salmosData.forEach((chapter, index) => {
+                    const option = document.createElement('option');
+                    option.value = index;
+                    option.textContent = `Salmo ${chapter.chapter['@osisID'].split('.')[1]}`;
+                    chapterSelect.appendChild(option);
+                });
+            }
+
+            // Display selected chapter
+            chapterSelect.addEventListener('change', (e) => {
+                const selectedChapter = salmosData[e.target.value];
+                if (selectedChapter && selectedChapter.chapter && Array.isArray(selectedChapter.chapter.verse)) {
+                    content.innerHTML = '';
+                    selectedChapter.chapter.verse.forEach(verse => {
+                        const verseElement = document.createElement('div');
+                        verseElement.className = 'verse';
+                        const verseNumber = verse['@osisID'].split('.')[2];
+                        verseElement.innerHTML = `<span class='verse-number'>${verseNumber}</span> ${verse['#text']}`;
+                        content.appendChild(verseElement);
+                    });
+                } else {
+                    content.textContent = 'Selecione um capítulo para visualizar.';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
