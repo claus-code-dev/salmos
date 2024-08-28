@@ -52,7 +52,7 @@
             let salmosData;
             
             // Fetch JSON data from Google Drive
-            fetch('https://drive.google.com/uc?export=download&id=1DnCmlxGXPBfBS3IDG-Zp-NokUoCzSR1r')
+            fetch('https://raw.githubusercontent.com/claus-code-dev/salmos/salmos/salmos.json')
                 .then(response => response.json())
                 .then(data => {
                     salmosData = data;
