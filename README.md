@@ -1,1 +1,1 @@
-teste para o blogger
+Usando json para recuperar dados estaticos.
