@@ -50,8 +50,8 @@
             const chapterSelect = document.getElementById('chapterSelect');
             const content = document.getElementById('content');
             let salmosData;
-            
-            // Fetch JSON data from Google Drive
+
+            // Fetch JSON data from GitHub
             fetch('https://raw.githubusercontent.com/claus-code-dev/salmos/salmos/salmos.json')
                 .then(response => response.json())
                 .then(data => {
@@ -76,7 +76,6 @@
                 });
             }
 
-            // Display selected chapter
             chapterSelect.addEventListener('change', (e) => {
                 const selectedChapter = salmosData[e.target.value];
                 if (selectedChapter && selectedChapter.chapter && Array.isArray(selectedChapter.chapter.verse)) {
