@@ -59,13 +59,13 @@
                     populateChapterSelect();
                 })
                 .catch(error => {
-                    console.error('Error loading JSON:', error);
+                    console.error('Erro ao carregar JSON:', error);
                     content.textContent = 'Erro ao carregar os dados. Por favor, tente novamente mais tarde.';
                 });
 
             function populateChapterSelect() {
                 if (!salmosData || !Array.isArray(salmosData)) {
-                    console.error('Invalid or missing salmosData');
+                    console.error('Dados de salmos inválidos ou ausentes');
                     return;
                 }
                 salmosData.forEach((chapter, index) => {
